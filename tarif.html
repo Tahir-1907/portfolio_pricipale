@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Configurateur de devis AGT pour estimer un projet web, mobile ou logiciel.">
+    <title>Configurateur de devis - AGT</title>
+    <link rel="stylesheet" href="tarif.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<header>
+    <a href="index.html"><img src="Logo AGT.png" alt="Logo AGT" class="logo"></a>
+</header>
+
+<section id="configurateur">
+    <h2>Devis personnalisé - AGT</h2>
+
+    <div class="bloc" id="service-selector">
+        <h3>Quel est votre projet ?</h3>
+        <div class="service-buttons">
+            <button type="button" class="svc-btn" onclick="showForm('web')">🌐 Site web</button>
+            <button type="button" class="svc-btn" onclick="showForm('mobile')">📱 App mobile</button>
+            <button type="button" class="svc-btn" onclick="showForm('logiciel')">💻 Logiciel</button>
+        </div>
+    </div>
+
+    <div id="main-form" style="display: none;">
+
+        <div class="bloc">
+            <h3>Vos informations</h3>
+            <input type="text" id="client-name" placeholder="Votre nom / entreprise" class="input-field">
+            <input type="email" id="client-email" placeholder="Votre e-mail" class="input-field">
+        </div>
+
+        <div class="bloc category-content" id="cat-web">
+            <h3>1. Type de site web</h3>
+            <label><input type="radio" name="type" data-price="600"> Landing page (une seule page)</label>
+            <label><input type="radio" name="type" data-price="1200"> Site vitrine multi-pages</label>
+            <label><input type="radio" name="type" data-price="2500"> Boutique e-commerce complète</label>
+            <label><input type="radio" name="type" data-price="1800"> Blog / magazine d'actualités</label>
+        </div>
+
+        <div class="bloc category-content" id="cat-mobile" style="display: none;">
+            <h3>1. Type d'application</h3>
+            <label><input type="radio" name="type" data-price="3000"> Application native (iOS et Android)</label>
+            <label><input type="radio" name="type" data-price="1500"> Progressive Web App (PWA)</label>
+            <label><input type="radio" name="type" data-price="4500"> App avec base de données temps réel</label>
+        </div>
+
+        <div class="bloc category-content" id="cat-logiciel" style="display: none;">
+            <h3>1. Type de logiciel SaaS</h3>
+            <label><input type="radio" name="type" data-price="2500"> Outil de gestion interne (ERP/CRM)</label>
+            <label><input type="radio" name="type" data-price="1200"> Script d'automatisation / bot</label>
+            <label><input type="radio" name="type" data-price="4000"> Plateforme de gestion complexe</label>
+        </div>
+
+        <div class="bloc">
+            <h3>2. Options de développement</h3>
+            <div id="options-web">
+                <label><input type="checkbox" data-price="200"> SEO avancé (référencement)</label>
+                <label><input type="checkbox" data-price="500"> Système de paiement sécurisé</label>
+            </div>
+            <div id="options-mobile" style="display: none;">
+                <label><input type="checkbox" data-price="600"> Notifications push illimitées</label>
+                <label><input type="checkbox" data-price="400"> Publication sur les stores</label>
+            </div>
+            <label><input type="checkbox" data-price="500"> Maintenance et sécurité (1 an)</label>
+        </div>
+
+        <div class="bloc">
+            <h3>3. Design et performance</h3>
+            <label><input type="radio" name="niveau" data-mult="1"> Standard (template optimisé)</label>
+            <label><input type="radio" name="niveau" data-mult="1.4"> Premium (design sur mesure)</label>
+            <label><input type="radio" name="niveau" data-mult="1.8"> Ultra (animations complexes)</label>
+        </div>
+
+        <div class="devis">
+            <p style="color: #00e5ff; margin-bottom: 20px;">Configuration terminée. Téléchargez votre devis pour découvrir l'estimation.</p>
+            <button id="download-btn" disabled>Générer mon devis (PDF)</button>
+        </div>
+    </div>
+</section>
+
+<script>
+    const { jsPDF } = window.jspdf;
+    const btn = document.getElementById('download-btn');
+    const inputs = document.querySelectorAll('#configurateur input');
+    let currentTotal = 0;
+
+    function showForm(category) {
+        document.getElementById('main-form').style.display = 'block';
+        document.querySelectorAll('.category-content, #options-web, #options-mobile').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('#main-form input[type="radio"], #main-form input[type="checkbox"]').forEach(i => i.checked = false);
+
+        document.getElementById('cat-' + category).style.display = 'block';
+        if (document.getElementById('options-' + category)) {
+            document.getElementById('options-' + category).style.display = 'block';
+        }
+        updatePrice();
+        document.getElementById('main-form').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function updatePrice() {
+        const type = document.querySelector('input[name="type"]:checked');
+        const niveau = document.querySelector('input[name="niveau"]:checked');
+        const options = document.querySelectorAll('input[type="checkbox"]:checked');
+
+        if (type && niveau) {
+            const base = Number(type.dataset.price);
+            let optionsTotal = 0;
+            options.forEach(opt => optionsTotal += Number(opt.dataset.price));
+            currentTotal = Math.round((base + optionsTotal) * Number(niveau.dataset.mult));
+            btn.disabled = false;
+        } else {
+            btn.disabled = true;
+        }
+    }
+
+    inputs.forEach(input => input.addEventListener('change', updatePrice));
+
+    btn.addEventListener('click', () => {
+        const type = document.querySelector('input[name="type"]:checked');
+        const niveau = document.querySelector('input[name="niveau"]:checked');
+        const options = document.querySelectorAll('input[type="checkbox"]:checked');
+        const clientName = document.getElementById('client-name').value || 'Client';
+
+        const doc = new jsPDF();
+        let y = 20;
+
+        doc.setFontSize(22);
+        doc.setTextColor(0, 229, 255);
+        doc.text('Ates Groupe Technologies', 10, y);
+        y += 15;
+
+        doc.setFontSize(12);
+        doc.setTextColor(100);
+        doc.text(`Devis pour : ${clientName}`, 10, y);
+        y += 7;
+        doc.text(`Date : ${new Date().toLocaleDateString('fr-FR')}`, 10, y);
+        y += 10;
+        doc.text('------------------------------------------------------------------', 10, y);
+        y += 10;
+
+        doc.setTextColor(0);
+        doc.setFont(undefined, 'bold');
+        doc.text('Solution choisie :', 10, y);
+        doc.setFont(undefined, 'normal');
+        doc.text(type.parentElement.textContent.trim(), 60, y);
+        y += 10;
+
+        doc.setFont(undefined, 'bold');
+        doc.text('Finition :', 10, y);
+        doc.setFont(undefined, 'normal');
+        doc.text(niveau.parentElement.textContent.trim(), 60, y);
+        y += 15;
+
+        doc.setFont(undefined, 'bold');
+        doc.text('Options incluses :', 10, y);
+        y += 7;
+        doc.setFont(undefined, 'normal');
+        if (options.length > 0) {
+            options.forEach(opt => {
+                doc.text('- ' + opt.parentElement.textContent.trim(), 15, y);
+                y += 7;
+            });
+        } else {
+            doc.text('Standard', 15, y);
+            y += 7;
+        }
+
+        y += 15;
+        doc.setFontSize(18);
+        doc.setFont(undefined, 'bold');
+        doc.setTextColor(0, 229, 255);
+        doc.text(`TOTAL TTC ESTIMÉ : ${currentTotal} €`, 10, y);
+
+        y += 20;
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        doc.setFont(undefined, 'italic');
+        doc.text('Ce document est une estimation basée sur vos choix.', 10, y);
+
+        doc.save(`Devis_AGT_${clientName}.pdf`);
+    });
+</script>
+</body>
+</html>

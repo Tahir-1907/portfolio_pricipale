@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Découvrez les projets web réalisés par Ates Groupe Technologies pour différents secteurs.">
+    <title>Nos projets - AGT</title>
+    <link rel="stylesheet" href="projets.css">
+</head>
+<body>
+
+<a href="index.html"><img src="Logo AGT.png" alt="Logo AGT"></a>
+
+<h1>Nos projets</h1>
+
+<p>
+    Grâce à nos connaissances et à notre savoir-faire, plusieurs entreprises nous ont sollicités pour la création ou la refonte de leur site web.
+    Restaurant, coiffeur, épicerie et bien d'autres nous ont fait confiance.
+</p>
+
+<h3>Voici quelques-unes de nos réalisations.</h3>
+
+<div class="project-container">
+    <div class="browser-mockup">
+        <div class="browser-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <div class="address-bar">https://www.projet-client.fr</div>
+        </div>
+        <div class="iframe-wrapper">
+            <iframe src="https://votre-site-test.com" id="siteFrame" title="Prévisualisation projet"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+const frameElement = document.getElementById('siteFrame');
+let scrollPos = 0;
+
+function autoScroll() {
+    if (!frameElement || !frameElement.contentWindow) return;
+
+    scrollPos += 1;
+
+    try {
+        frameElement.contentWindow.scrollTo(0, scrollPos);
+        if (scrollPos > 2000) scrollPos = 0;
+    } catch (e) {
+        // Ignore cross-origin access errors.
+        return;
+    }
+
+    requestAnimationFrame(autoScroll);
+}
+
+frameElement.addEventListener('load', autoScroll, { once: true });
+</script>
+
+</body>
+</html>

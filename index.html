@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ates Groupe Technologies accompagne les TPE/PME avec des sites web, logiciels et applications mobiles performants, sécurisés et évolutifs.">
+    <title>Ates Groupe Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<canvas id="particle-bg"></canvas>
+
+<header>
+    <a href="index.html"><img src="Logo AGT.png" alt="Logo Ates Groupe Technologies" class="logo"></a>
+    <nav>
+        <ul>
+            <li><a href="presentation.html">Qui sommes-nous ?</a></li>
+            <!-- <li><a href="nos_projets.html">Nos projets</a></li> -->
+            <li><a href="prestation.html">Prestations</a></li>
+            <li><a href="tarif.html">Nos tarifs</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="hero fade-in">
+        <p class="hero-tag">Solutions digitales pour TPE et PME</p>
+        <h1>Nous créons des sites web et outils métiers qui font gagner du temps</h1>
+        <p class="hero-lead">De la conception au déploiement, nous livrons des solutions fiables, rapides et faciles à maintenir.</p>
+
+        <div class="hero-actions">
+            <a href="tarif.html" class="cta">Demander un devis</a>
+            <a href="contact.html" class="cta cta-secondary">Parler de votre projet</a>
+        </div>
+
+        <div class="hero-proof">
+            <span>Réponse sous 24 h</span>
+            <span>Approche sur mesure</span>
+            <span>Support après livraison</span>
+        </div>
+    </section>
+
+    <section id="about" class="fade-in">
+        <h2>Pourquoi choisir Ates Groupe Technologies ?</h2>
+        <p>
+            Nous accompagnons particuliers et entreprises dans la création de sites web, de logiciels et d'applications
+            performants, sécurisés et évolutifs.
+        </p>
+        <div class="value-grid">
+            <article class="value-card">
+                <h3>Méthode claire</h3>
+                <p>Un cadrage simple, des étapes visibles et des livrables concrets à chaque phase.</p>
+            </article>
+            <article class="value-card">
+                <h3>Qualité technique</h3>
+                <p>Code maintenable, expérience fluide et attention portée à la performance.</p>
+            </article>
+            <article class="value-card">
+                <h3>Vision long terme</h3>
+                <p>Des solutions pensées pour évoluer avec votre activité.</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="sites" class="fade-in">
+        <h2>Nos projets et réalisations</h2>
+        <div class="projects-grid">
+            <article class="card">
+                <h3>Site web pour pizzeria</h3>
+                <p>Conception d'un site moderne avec carte interactive, réservation en ligne et optimisation mobile.</p>
+                <a href="nos_projets.html">Voir le projet</a>
+            </article>
+
+            <article class="card">
+                <h3>Solution de facturation</h3>
+                <p>Développement d'une plateforme de gestion de devis personnalisables pour fluidifier la relation client.</p>
+                <a href="nos_projets.html">Voir le projet</a>
+            </article>
+
+            <article class="card">
+                <h3>Support infrastructure</h3>
+                <p>Interventions de sécurisation réseau, sauvegarde et maintenance pour réduire les interruptions.</p>
+                <a href="prestation.html">Voir les prestations</a>
+            </article>
+        </div>
+    </section>
+
+    <section class="process fade-in" id="process">
+        <h2>Comment se déroule un projet ?</h2>
+        <div class="process-grid">
+            <article class="process-step">
+                <span class="step-number">01</span>
+                <h3>Cadrage</h3>
+                <p>Nous définissons vos objectifs, vos contraintes et le périmètre exact.</p>
+            </article>
+            <article class="process-step">
+                <span class="step-number">02</span>
+                <h3>Production</h3>
+                <p>Design, développement et validations intermédiaires pour rester alignés.</p>
+            </article>
+            <article class="process-step">
+                <span class="step-number">03</span>
+                <h3>Livraison et suivi</h3>
+                <p>Mise en ligne, transfert des accès et accompagnement post-lancement.</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="services" class="fade-in">
+        <h2>Besoin d'une prestation web, d'un logiciel sur mesure ou d'une application mobile ?</h2>
+        <ul class="services-list">
+            <li>Création de sites web professionnels</li>
+            <li>Développement de logiciels sur mesure</li>
+            <li>Applications mobiles</li>
+            <li>Audit et maintenance technique</li>
+        </ul>
+        <a href="tarif.html" class="cta">Lancer votre projet</a>
+    </section>
+</main>
+
+<footer id="contact" class="fade-in">
+    <p>Suivez-nous :</p>
+    <a href="https://www.linkedin.com/in/tahir-ates-055648339/" class="btn-linkedin" target="_blank" rel="noopener noreferrer">Mon profil LinkedIn</a>
+
+    <p>Email : <a href="mailto:atestahir240@gmail.com">atestahir240@gmail.com</a></p>
+    <p>Téléphone : <a href="tel:+33652208388">06.52.20.83.88</a></p>
+
+    <p class="copyright">© 2026 Ates Groupe Technologies - Tous droits réservés</p>
+</footer>
+
+<script>
+    let lastScrollY = window.scrollY;
+    const header = document.querySelector('header');
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            header.classList.add('hide');
+        } else {
+            header.classList.remove('hide');
+        }
+        lastScrollY = currentScrollY;
+    });
+
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = { threshold: 0.15 };
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, appearOptions);
+
+    faders.forEach(fader => appearOnScroll.observe(fader));
+
+    const canvas = document.getElementById('particle-bg');
+    const ctx = canvas.getContext('2d');
+
+    function setCanvasSize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    setCanvasSize();
+
+    const particlesArray = [];
+    const colors = ['#00e5ff', '#7b61ff', '#ffffff'];
+    const particleCount = window.innerWidth < 768 ? 45 : 100;
+
+    class Particle {
+        constructor() {
+            this.init();
+        }
+        init() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = Math.random() * 1 - 0.5;
+            this.speedY = Math.random() * 1 - 0.5;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        for (let i = 0; i < particleCount; i++) particlesArray.push(new Particle());
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particlesArray.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        if (!reduceMotion) requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', () => {
+        setCanvasSize();
+        particlesArray.forEach(p => p.init());
+    });
+
+    initParticles();
+    if (!reduceMotion) {
+        animateParticles();
+    } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+</script>
+
+</body>
+</html>
